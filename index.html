@@ -1,0 +1,551 @@
+7<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>BMB 27th ANNUAL PERFORMANCE</title>
+    <style>
+        @font-face {
+            font-family: 'NanumGothicLight';
+            font-family: 'NanumGothic';
+            font-family: 'NanumGothicBold';
+            font-family: 'NanumGothicExtraBold';
+            src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_11-01@1.0/LINESeedKR-Bd.woff2') format('woff2');
+            font-weight: 700;
+            font-style: normal;
+            font-size: 100;
+        }
+
+        body {
+            font-family: 'NanumGothicLight';
+            font-family: 'NanumGothic';
+            font-family: 'NanumGothicBold';
+            font-family: 'NanumGothicExtraBold';
+            margin: 0;
+            padding: 0;
+            background-color: #000;
+            color: #fff;
+            font-size: 20px;
+        }
+
+        #headerBar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 10vh;
+            background-color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 100;
+            text-align: center;
+            letter-spacing: 5px;
+            color: #fff;
+            font-size: 15px;
+        }
+
+        #progressBar {
+            position: fixed;
+            top: 10vh;
+            left: 0;
+            width: 0;
+            height: 5px;
+            background-color: #fff;
+            z-index: 99;
+        }
+
+        #contentImage {
+            margin-top: 20px;
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 10px;
+            transition: opacity 0.5s ease;
+            position: relative;
+            z-index: 1;
+        }
+
+        .content {
+            padding: 20px;
+            height: 2000px;
+            background-color: #000;
+            margin-top: 5vh;
+            position: relative;
+            z-index: 1;
+        }
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            margin-bottom: 20px;
+            transition: opacity 0.5s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        hr {
+            margin-top: 20px;
+            border: 1px solid #444;
+        }
+
+        .accordion {
+            position: relative;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            z-index: 2;
+        }
+
+        .accordion.show {
+            opacity: 1;
+        }
+
+        .accordion button {
+            background-color: transparent;
+            color: #fff;
+            cursor: pointer;
+            padding: 20px;
+            width: 100%;
+            text-align: left;
+            border: none;
+            font-size: 22px;
+            font-weight: bold;
+            outline: none;
+            transition: background-color 0.3s ease;
+            margin: 0;            
+            display: inline-block; 
+        }
+
+        .accordion button.active,
+        .accordion button:hover {
+            background-color: #333;
+        }
+
+        .accordion-content {
+            display: none; /* 기본적으로 숨김 */
+            background-color: #222;
+            font-size: 10px;
+        }
+
+        .accordion-content.show {
+            display: block; /* show 클래스가 추가되면 표시 */
+        }
+
+        .accordion-content p {
+            padding: 10px 15px; /* 패딩 조정 */
+            margin: 0;
+            color: #fff;
+            font-size: 14px;
+        }
+
+        .section-title {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+    </style>
+
+    <style>
+        body {
+            font-family: 'NanumGothicLight';
+            font-family: 'NanumGothic';
+            font-family: 'NanumGothicBold';
+            font-family: 'NanumGothicExtraBold';
+            margin: 0;
+            padding: 0;
+            height: 200vh; /* 테스트를 위해 페이지 높이를 늘림 */
+        }
+
+        #bottomBar {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        background: linear-gradient(to bottom, rgba(0, 0, 0, 0.05), rgba(100, 100, 100, 0.95));
+        color: white;
+        text-align: center;
+        font-size: 16px;
+        padding: 3px 0;
+        height: 50px;
+        line-height: 50px; /* 텍스트를 수직 가운데 정렬 */
+        z-index: 100;
+        display: block; /* 기본적으로 표시 */
+        transition: opacity 1s ease; /* 부드러운 페이드 효과 */
+    }
+
+        #bottomBar.hidden {
+        opacity: 0; /* 완전히 투명 */
+        pointer-events: none; /* 숨긴 상태에서 클릭 방지 */
+        }
+    </style>
+
+</head>
+<body>
+    <div id="bottomBar" onclick="scrollToTenPercent()">
+        L I N E U P
+    </div>
+
+    <script>
+        // 스크롤의 10% 지점까지 이동하는 함수
+        function scrollToTenPercent() {
+            const scrollHeight = document.documentElement.scrollHeight; // 전체 문서 높이
+            const windowHeight = window.innerHeight; // 뷰포트 높이
+            const targetScrollPosition = (scrollHeight - windowHeight) * 0.18; // 10% 위치 계산
+
+            window.scrollTo({
+                top: targetScrollPosition,
+                behavior: "smooth" // 스크롤 애니메이션 효과
+            });
+        }
+
+        // 바를 숨기고 다시 표시하는 함수
+        window.addEventListener("scroll", () => {
+            const scrollPosition = window.scrollY || window.pageYOffset; // 현재 스크롤 위치
+            const scrollHeight = document.documentElement.scrollHeight; // 전체 문서 높이
+            const windowHeight = window.innerHeight; // 뷰포트 높이
+
+            const scrollPercentage = (scrollPosition / (scrollHeight - windowHeight)) * 100; // 스크롤 퍼센트 계산
+
+            const bottomBar = document.getElementById("bottomBar");
+
+            if (scrollPercentage > 10) {
+                bottomBar.classList.add("hidden"); // 숨김 상태로 변경
+            } else {
+                bottomBar.classList.remove("hidden"); // 다시 표시
+            }
+        });
+    </script>
+</body>
+
+</html>
+
+    <div id="headerBar">
+        <img src="BMB 로고.png" style="width: 40px; height: 40px; margin-right: 20px; margin-top: 15px; margin-left: 20px;"> 
+        <span>BMB 27th ANNUAL PERFORMANCE</span>
+    </div>
+
+    <div id="progressBar"></div>
+
+    <hr style="border: 1px solid #444; margin: 0;"> 
+
+    <hr style="border: 1px solid #444; margin: 0;"> 
+
+    <div class="content">
+        <img src="BMB 포스터.png" id="contentImage">
+        <hr>
+
+        <div class="section-title">1부</div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">1. Crewzy<br>
+                <span style="font-size: 17px; color: white;">| Direct. 마리나</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Girlish, Choreography (03:06)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 마리나  문희원  박채원  안원정  이민영  이수현  장가은  최지현<br>
+                  크리스  키안 </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">2. 네얼간이<br> 
+                <span style="font-size: 17px; color: white;">| Direct. All</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Popping, Locking, Breaking (03:44)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 강은우  김도영  강재현  이호진 </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">3. 나야, 힙합<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 노승연</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Hiphop (04:00)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 노승연  김경민  김동주  김제연  김초은  김태령  류지이  박서인<br>
+                  박소민  양나빈  이가형  이규리  이수정  이지효  임태영  강서린</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">4. House of kitty 🐈‍⬛✨<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 신현우 · 이수현</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Voguing, Choreography (04:02)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 신현우  이수현  박채원  이소현  이종휘  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">5. 걸스나잇<br>
+                <span style="font-size: 17px; color: white;">| Direct. 박소연 </span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Girls Hiphop (03:47)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 박소연  고우미  김세연  김원영  김채원  니나  신해림  이윤진  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">6. Riff off<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 이준용</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Choreography (03:15)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 이준용  김민정  김지윤  박소민  박재현  이수정  한지민 </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">7. 모음.zip<br>
+                <span style="font-size: 17px; color: white;">| Direct. 조서연</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: House (03:14) </span>
+            </button>
+            <div class="accordion-content">
+                <p> 조서연  강서린  김은석  김주현  노승연  신솔지  이수현  이종휘<br>
+                 한규상  황서연  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">8. 난 슬플 때 윈드밀을 돌아<br>
+                <span style="font-size: 17px; color: white;">| Direct. 박세은 </span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Breaking (03:35)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 박세은  김주현  박다현  박한서  우수민  이수인  이연우  이호진<br>
+                 전다현  주시형  황요한  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">9. 헤어지자고? 나 지금 되게 섹시한데<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 김근아 · 김수연 </span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Choreography (03:15)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 김근아  김수연  김준희  박채원  배주연  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">10. 소울특별시<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 이민영</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Soul (04:01)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 이민영  강은우  강재현  김경민  김도영  노승연  문희원  신솔지<br>
+                 신현우  이가형  진유경  황서연  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false" style="padding-bottom: 0;">
+                <span style="font-size: 18px;">11. [Guest show] EMOTIONAL LINE
+            </button>
+        </div>
+
+        <hr>
+
+        <div class="section-title">2부</div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">1. MZ들 속에 꼰대 하나<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 조우빈</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: All Genre (04:32)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 조우빈  강은우  김경민  김도영  김수연  김주현  노승연  니나 <br> 
+                 말와  박서인  박세은  신솔지  양나빈  유정민  이가형  이민영 <br> 
+                 이연우  이지효  이호진  임태영  전다현  진유경  황서연</p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">2. 100억부자 신녀성 vs 무일푼 차은우<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 김준희</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Choreography (03:00)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 김준희  박채림  유희정  최지현  황수현  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false" style="padding-bottom: 0;">
+                <span style="font-size: 18px;">3. [Guest show] PRISM</span>
+            </button>
+        </div>
+        
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">4. The Fusion<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 안원정</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Girlish (02:41)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 안원정  김근아  김지윤  김채은  이지효  진유경  최지현  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">5. 흑백무용수<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 김준희</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Contemporary (01:55)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 김준희  김원영  니나  박채림  이우청  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">6. 사랑의 힙브핑<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 노승연</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Hiphop, Breaking (04:03)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 노승연  김경민  김도영  김태령  문소영  박서인  박세은  박소민<br> 
+                 배주연  송영운  이가형  이수정  이준용  이지효  이호진  홍지윤 <br> 
+                 황요한 </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">7. 오르락내리락<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 황서연</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Locking (03:52)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 황서연  강재현  김지윤  신솔지  우태림  이민영  이영서  이종휘 <br> 
+                 최영은  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">8. 궁중왁사<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 문희원</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Waacking (04:16)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 문희원  안원정  김근아  김현지  이소현  이수현  장가은  정희라 <br> 
+                 진유경  크리스  한채훈  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false" style="padding-bottom: 0;">
+                <span style="font-size: 18px;">9. [Guest show] 아주대 BEAT
+            </button>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">10. 뜬겁새로<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 문소영 </span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Hiphop (03:19)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 문소영  강니나  강서린  김채원  김채은  김태령  박서인  배주연<br> 
+                 임민서  한지민  </p>
+            </div>
+        </div>
+        <div class="accordion">
+            <button aria-expanded="false">
+                <span style="font-size: 19px;">11. CU 경희대 정문점<br> 
+                <span style="font-size: 17px; color: white;">| Direct. 김도영</span><br>
+                <span style="font-size: 12px; color: gray;">Genre: Popping (03:30)</span>
+            </button>
+            <div class="accordion-content">
+                <p> 김도영  강은우  김태리  송영운  장호영  지민준  크리스  황서연</p>
+            </div>
+        </div>
+
+        <hr style="border: 1px solid #444;">
+    
+    <div style="text-align: center; margin: 20px 0;">
+        <a href="https://www.instagram.com/khu_bmb/" style="color: #fff; text-decoration: none; font-size: 18px; display: inline-flex; align-items: center; margin-bottom: 15px;">
+            <img src="인스타그램 로고.png" style="width: 15px; height: 15px; margin-top: 10px; margin-right: 5px; object-fit: cover;">
+            <span style="font-size: 10px;">@khu_bmb</span>
+        </a>
+        <span style="margin: 0 10px; margin-top: 10px;">|</span>
+        <a href="https://jajudy.khu.ac.kr/club/404" style="color: #fff; text-decoration: none; font-size: 18px; display: inline-flex; align-items: center; margin-bottom: 15px;">
+            <img src="경희대학교 로고.png" style="width: 15px; height: 15px; margin-top: 10px; margin-right: 5px; object-fit: cover;">
+            <span style="font-size: 10px;">경희대학교 BMB</span>
+        </a>
+        <hr>
+    </div>
+
+    <script>
+        window.onscroll = function() {
+            updateProgressBar();
+            handleImageFade();
+            showAccordions();
+        };
+
+        function updateProgressBar() {
+            const scrollTop = document.documentElement.scrollTop || document.body.scrollTop;
+            const scrollHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const progress = (scrollTop / scrollHeight) * 100;
+            document.getElementById("progressBar").style.width = progress + "%";
+        }
+
+        function handleImageFade() {
+    const image = document.getElementById("contentImage");
+    const scrollPosition = window.scrollY || window.pageYOffset;
+
+    const hrElements = document.querySelectorAll('hr');
+    const hrPosition = Array.from(hrElements).map(hr => hr.getBoundingClientRect().top + window.scrollY);
+
+    const offset = 4000; // 페이드 아웃 타이밍을 늦추기 위한 추가 오프셋 (픽셀 단위)
+
+    if (scrollPosition > hrPosition[0] + offset) { // 오프셋만큼 지연
+        image.style.opacity = '0';
+    } else {
+        image.style.opacity = '1';
+    }
+}
+
+        function showAccordions() {
+            const accordions = document.querySelectorAll('.accordion');
+            const scrollPosition = window.scrollY || window.pageYOffset;
+
+            accordions.forEach((accordion) => {
+                const accordionPosition = accordion.getBoundingClientRect().top + scrollPosition;
+
+                if (scrollPosition > accordionPosition - window.innerHeight + 100) {
+                    accordion.classList.add('show'); 
+                } else {
+                    accordion.classList.remove('show'); 
+                }
+            });
+        }
+
+        const accordions = document.querySelectorAll('.accordion button');
+
+        accordions.forEach(button => {
+            button.addEventListener('click', function() {
+                this.classList.toggle('active');
+                const content = this.nextElementSibling;
+
+                const isExpanded = this.getAttribute('aria-expanded') === 'true';
+                this.setAttribute('aria-expanded', !isExpanded);
+
+                if (content.classList.contains('show')) {
+                    content.classList.remove('show'); // Remove show class
+                } else {
+                    content.classList.add('show'); // Add show class
+                }
+            });
+        });
+
+        // 처음에 모든 아코디언 콘텐츠가 보이도록 설정
+        document.querySelectorAll('.accordion-content').forEach(content => {
+            content.classList.add('show');
+        });
+
+        document.getElementById('accordion11').classList.remove('show');
+        document.getElementById('accordion3').classList.remove('show');
+        document.getElementById('accordion9').classList.remove('show');
+    </script>
+
+</body>
+</html>
